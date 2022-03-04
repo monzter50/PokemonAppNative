@@ -1,4 +1,4 @@
-# MY myself UI KIT
+# MY Pokemon Application
 
 ## Description
 
