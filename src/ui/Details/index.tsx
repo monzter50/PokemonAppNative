@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View, Button} from 'react-native';
-import {DetailsProps} from '../../types';
+import {NavigationProps} from '../../types';
 
-function Detailscreen(props: DetailsProps) {
+function Detailscreen(props: NavigationProps) {
   const {navigation, route} = props;
   const {itemId, otherParam} = route?.params;
   return (

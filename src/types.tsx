@@ -6,7 +6,7 @@ export type JSONArray = JSONTypes[];
 
 export type JSONTypes = JSONArray | JSONObject | Primitive;
 
-export type DetailsProps = {
+export type NavigationProps = {
   route: {
     params: {
       itemId: number;
@@ -15,6 +15,11 @@ export type DetailsProps = {
   };
   navigation: {
     goBack: () => void;
-    navigate: (arg: Primitive) => void;
+    navigate: (arg: Primitive, params?: JSONObject) => void;
   };
+};
+
+export type OptionsProps = {
+  [k: string]: JSONTypes;
+  endpoint: string | '';
 };
