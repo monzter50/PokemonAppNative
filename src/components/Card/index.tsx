@@ -53,10 +53,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: theme.primaryColor,
     fontWeight: 'bold',
     textAlign: 'center',
-    // fontFamily: theme.fontFamilyBold,
   },
 });
 export default Card;

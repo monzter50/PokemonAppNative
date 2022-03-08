@@ -13,14 +13,13 @@ export function get(
       ..._arguments,
     })
       .then(response => {
-        console.log('reponse', response);
         if (response.status !== 200) {
           return reject(defaultErr);
         }
         return response.json();
       })
       .then(result => {
-        resolve(result?.results);
+        resolve({data: result?.results || [], count: result?.count || 0});
       })
       .catch(error => {
         return reject(error.response);
