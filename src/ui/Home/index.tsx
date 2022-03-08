@@ -1,37 +1,58 @@
 import React from 'react';
-import {Text, View, Button, ScrollView} from 'react-native';
-// import pokemonService from '../../services/homeServices';
+import {View, ScrollView, StyleSheet} from 'react-native';
+import Card from '../../components/Card';
+import {Loading, Pagination} from '../../components';
 import useFetchPokemons from '../../hooks/useFetchPokemons';
-import {NavigationProps} from '../../types';
+import {NavigationProps, Pokemon} from '../../types';
+import {theme} from '../../theme';
 
 function HomeScreen({navigation}: NavigationProps) {
-  const {pokemons, isLoading} = useFetchPokemons();
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-  return (
-    <ScrollView>
-      {pokemons.map((pokemon: any) => (
-        <View>
-          <Text>{pokemon?.name}</Text>
-        </View>
-      ))}
+  const {pokemons, isLoading, next, prev, count, offset} = useFetchPokemons();
+  const handleGoToDetails = (_pokemonObj: Pokemon) => {
+    console.log(_pokemonObj);
+    navigation.navigate('Details', {
+      itemId: 86,
+      name: _pokemonObj.name,
+    });
+  };
 
-      <Button
-        title="Go to Details"
-        onPress={() =>
-          navigation.navigate('Details', {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          })
-        }
-      />
-    </ScrollView>
+  return (
+    <View style={styles.container}>
+      <Pagination next={next} prev={prev} count={count} offset={offset} />
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.list}>
+            {pokemons.map((pokemon: Pokemon) => (
+              <Card
+                key={pokemon.name}
+                name={pokemon.name}
+                handleGoToDetails={handleGoToDetails}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      )}
+    </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: theme.large,
+    marginTop: 20,
+  },
+  list: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  wrapper: {
+    flex: 1,
+  },
+});
 
 export default HomeScreen;

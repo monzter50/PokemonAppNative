@@ -1,22 +1,46 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useStorePokemons} from '../provider';
+import {Pokemon} from '../types';
 
 function useFetchPokemons() {
-  const pokemons = useStorePokemons((state: {pokemons: any}) => state.pokemons);
+  const [limit] = useState(10);
+  const [offset, setOffset] = useState(0);
+  const next = () => {
+    setOffset(prev => prev + limit);
+  };
+  const prev = () => {
+    if (offset > 0) {
+      setOffset(prevState => prevState - limit);
+    }
+  };
+  const store = useStorePokemons(
+    (state: {pokemons: Pokemon[]; isLoading: boolean; count: number}) => {
+      return {
+        pokemons: state.pokemons,
+        isLoading: state.isLoading,
+        count: state.count,
+      };
+    },
+  );
   let getPokemons = useStorePokemons(
     (state: {getPokemons: any}) => state.getPokemons,
   );
-  const isLoading = useStorePokemons(
-    (state: {isLoading: boolean}) => state.isLoading,
-  );
-  console.log('pokemons', pokemons);
+
+  console.log('pokemons', store);
   useEffect(() => {
     (async function () {
-      await getPokemons();
+      await getPokemons({limit, offset});
     })();
-  }, [getPokemons]);
+  }, [getPokemons, limit, offset]);
 
-  return {pokemons, isLoading};
+  return {
+    pokemons: store.pokemons,
+    isLoading: store.isLoading,
+    next,
+    prev,
+    count: store.count,
+    offset,
+  };
 }
 
 export default useFetchPokemons;

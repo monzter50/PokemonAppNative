@@ -15,20 +15,23 @@ I am creating a react native app so that I can improve my skills and understandi
 
 ## Features
 
-- Home Screen
-  - List Pokemons
-  - Search Box
-  - Pagination
-  - Go to Details Pokemon
-- Details
+- Home Screen ✅
+  - List Pokemons ✅
+  - Pagination ✅
+  - Go to Details Pokemon ✅
+- Details Screen
   - Avatar
   - Description
   - Type
   - Weakness
   - Back
-- Add favorites
+- Add favorites Screen
   - List favorites pokemon
   - Go to details Pokemon
+- Search Screen  
+  - Search Box
+  - Logic find pokemon
+  - Show list pokemon lookup
 - Navigations
     - Bottom menu
         - Home
