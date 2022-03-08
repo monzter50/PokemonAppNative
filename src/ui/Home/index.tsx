@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import Card from '../../components/Card';
 import useFetchPokemons from '../../hooks/useFetchPokemons';
 import {NavigationProps, Pokemon} from '../../types';
@@ -22,16 +22,30 @@ function HomeScreen({navigation}: NavigationProps) {
   }
 
   return (
-    <ScrollView>
-      {pokemons.map((pokemon: Pokemon) => (
-        <Card
-          key={pokemon.name}
-          name={pokemon.name}
-          handleGoToDetails={handleGoToDetails}
-        />
-      ))}
+    <ScrollView style={styles.container}>
+      <View style={styles.list}>
+        {pokemons.map((pokemon: Pokemon) => (
+          <Card
+            key={pokemon.name}
+            name={pokemon.name}
+            handleGoToDetails={handleGoToDetails}
+          />
+        ))}
+      </View>
     </ScrollView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  list: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default HomeScreen;
