@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: theme.medium,
-    margin: theme.medium,
-    width: '40%',
+    marginLeft: theme.medium,
+    marginBottom: theme.medium,
+    width: '46%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

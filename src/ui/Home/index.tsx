@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableHighlight,
-  Text,
-} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import Card from '../../components/Card';
-import {LeftIcon, RightIcon, Loading} from '../../components';
+import {Loading, Pagination} from '../../components';
 import useFetchPokemons from '../../hooks/useFetchPokemons';
-import {theme} from '../../theme';
 import {NavigationProps, Pokemon} from '../../types';
+import {theme} from '../../theme';
 
 function HomeScreen({navigation}: NavigationProps) {
   const {pokemons, isLoading, next, prev, count, offset} = useFetchPokemons();
@@ -21,44 +15,33 @@ function HomeScreen({navigation}: NavigationProps) {
       name: _pokemonObj.name,
     });
   };
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.nav}>
-        <TouchableHighlight
-          underlayColor="rgba(73,182,77,1,0.6)"
-          onPress={prev}>
-          <LeftIcon size={40} color={'black'} />
-        </TouchableHighlight>
-        <View>
-          <Text style={styles.title}>
-            {offset} {'-'} {count}
-          </Text>
-        </View>
-        <TouchableHighlight
-          underlayColor="rgba(73,182,77,1,0.6)"
-          onPress={next}>
-          <RightIcon size={40} color={'black'} />
-        </TouchableHighlight>
-      </View>
-      <View style={styles.list}>
-        {pokemons.map((pokemon: Pokemon) => (
-          <Card
-            key={pokemon.name}
-            name={pokemon.name}
-            handleGoToDetails={handleGoToDetails}
-          />
-        ))}
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Pagination next={next} prev={prev} count={count} offset={offset} />
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.list}>
+            {pokemons.map((pokemon: Pokemon) => (
+              <Card
+                key={pokemon.name}
+                name={pokemon.name}
+                handleGoToDetails={handleGoToDetails}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      )}
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    margin: theme.large,
+    marginTop: 20,
   },
   list: {
     flex: 1,
@@ -67,19 +50,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  nav: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: theme.large,
-    marginLeft: theme.large,
-    marginRight: theme.large,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    // fontFamily: theme.fontFamilyBold,
+  wrapper: {
+    flex: 1,
   },
 });
 
