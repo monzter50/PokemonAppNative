@@ -1,22 +1,26 @@
-import React, {useEffect} from 'react';
-import {Text, View, Button} from 'react-native';
-import pokemonService from '../../services/homeServices';
+import React from 'react';
+import {Text, View, Button, ScrollView} from 'react-native';
+// import pokemonService from '../../services/homeServices';
+import useFetchPokemons from '../../hooks/useFetchPokemons';
 import {NavigationProps} from '../../types';
 
 function HomeScreen({navigation}: NavigationProps) {
-  useEffect(() => {
-    pokemonService
-      .getPokemons({})
-      .then(result => {
-        console.log('response', result);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  const {pokemons, isLoading} = useFetchPokemons();
+  if (isLoading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
+    <ScrollView>
+      {pokemons.map((pokemon: any) => (
+        <View>
+          <Text>{pokemon?.name}</Text>
+        </View>
+      ))}
+
       <Button
         title="Go to Details"
         onPress={() =>
@@ -26,7 +30,7 @@ function HomeScreen({navigation}: NavigationProps) {
           })
         }
       />
-    </View>
+    </ScrollView>
   );
 }
 

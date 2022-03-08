@@ -6,7 +6,6 @@ export function get(
 ): Promise<any> {
   return new Promise(function (resolve, reject) {
     const {endpoint, ..._arguments} = options;
-    console.log('endpoint', endpoint);
     configure({
       method: 'GET',
       endpoint: endpoint,
@@ -19,8 +18,6 @@ export function get(
         return response.json();
       })
       .then(result => {
-        console.log('ewaul', result);
-
         resolve(result?.results);
       })
       .catch(error => {
