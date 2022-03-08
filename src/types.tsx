@@ -10,7 +10,7 @@ export type NavigationProps = {
   route: {
     params: {
       itemId: number;
-      otherParam: string;
+      name: string;
     };
   };
   navigation: {
@@ -22,4 +22,16 @@ export type NavigationProps = {
 export type OptionsProps = {
   [k: string]: JSONTypes;
   endpoint: string | '';
+};
+
+export type CardProps = {
+  name: string;
+  id?: number;
+  url?: string;
+  handleGoToDetails: (pokemonObj: Pokemon) => void;
+};
+
+export type Pokemon = {
+  name: string;
+  url?: string;
 };
