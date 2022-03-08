@@ -5,10 +5,10 @@ import {JSONObject} from '../types';
 const useStorePokemons = create((set: (args: JSONObject) => void) => ({
   pokemons: [],
   isLoading: false,
-  getPokemons: async () => {
+  getPokemons: async (params: JSONObject) => {
     set({isLoading: true});
-    const response = await pokemonService.getPokemons();
-    console.log(response);
+    const response = await pokemonService.getPokemons(params);
+    console.log('response ->', response);
     set({pokemons: response, isLoading: false});
   },
 }));

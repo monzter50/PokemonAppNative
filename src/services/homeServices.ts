@@ -2,7 +2,7 @@ import {get} from './index';
 import {JSONObject} from '../types';
 function getPokemons(params: JSONObject = {}) {
   return get({
-    endpoint: 'pokemon/',
+    endpoint: 'pokemon',
     data: {},
     params,
   });

@@ -1,7 +1,15 @@
 import React from 'react';
-import {Text, View, ScrollView, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableHighlight,
+} from 'react-native';
 import Card from '../../components/Card';
+import {LeftIcon, RightIcon} from '../../components/Icons';
 import useFetchPokemons from '../../hooks/useFetchPokemons';
+import {theme} from '../../theme';
 import {NavigationProps, Pokemon} from '../../types';
 
 function HomeScreen({navigation}: NavigationProps) {
@@ -23,6 +31,18 @@ function HomeScreen({navigation}: NavigationProps) {
 
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.nav}>
+        <TouchableHighlight
+          underlayColor="rgba(73,182,77,1,0.6)"
+          onPress={() => console.log('Loading...')}>
+          <LeftIcon size={40} color={'black'} />
+        </TouchableHighlight>
+        <TouchableHighlight
+          underlayColor="rgba(73,182,77,1,0.6)"
+          onPress={() => console.log('Loading...')}>
+          <RightIcon size={40} color={'black'} />
+        </TouchableHighlight>
+      </View>
       <View style={styles.list}>
         {pokemons.map((pokemon: Pokemon) => (
           <Card
@@ -45,6 +65,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  nav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: theme.large,
+    marginLeft: theme.large,
+    marginRight: theme.large,
   },
 });
 

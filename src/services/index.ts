@@ -6,12 +6,14 @@ export function get(
 ): Promise<any> {
   return new Promise(function (resolve, reject) {
     const {endpoint, ..._arguments} = options;
+    console.log('options', options);
     configure({
       method: 'GET',
       endpoint: endpoint,
       ..._arguments,
     })
       .then(response => {
+        console.log('reponse', response);
         if (response.status !== 200) {
           return reject(defaultErr);
         }

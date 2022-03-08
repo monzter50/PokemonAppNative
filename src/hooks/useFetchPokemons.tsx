@@ -1,7 +1,9 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useStorePokemons} from '../provider';
 
 function useFetchPokemons() {
+  const [limit] = useState(20);
+  const [offset] = useState(10);
   const pokemons = useStorePokemons((state: {pokemons: any}) => state.pokemons);
   let getPokemons = useStorePokemons(
     (state: {getPokemons: any}) => state.getPokemons,
@@ -12,9 +14,9 @@ function useFetchPokemons() {
   console.log('pokemons', pokemons);
   useEffect(() => {
     (async function () {
-      await getPokemons();
+      await getPokemons({limit, offset});
     })();
-  }, [getPokemons]);
+  }, [getPokemons, limit, offset]);
 
   return {pokemons, isLoading};
 }
