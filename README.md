@@ -16,10 +16,10 @@ I am creating a react native app so that I can improve my skills and understandi
 ## Features
 
 - Home Screen
-  - List Pokemons
+  - List Pokemons ✅
   - Search Box
-  - Pagination
-  - Go to Details Pokemon
+  - Pagination ✅
+  - Go to Details Pokemon ✅
 - Details
   - Avatar
   - Description
