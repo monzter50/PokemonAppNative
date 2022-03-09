@@ -32,8 +32,8 @@ I am creating a react native app so that I can improve my skills and understandi
   - Search Box
   - Logic find pokemon
   - Show list pokemon lookup
-- Navigations
-    - Bottom menu
-        - Home
-        - Details
-        - Favorite
+- Navigations ✅
+    - Bottom menu ✅
+        - Home ✅
+        - Details ✅
+        - Favorite ✅
