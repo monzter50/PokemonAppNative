@@ -37,3 +37,4 @@ I am creating a react native app so that I can improve my skills and understandi
         - Home ✅
         - Details ✅
         - Favorite ✅
+        - Search ✅
