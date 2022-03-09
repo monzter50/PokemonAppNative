@@ -9,7 +9,7 @@ export type JSONTypes = JSONArray | JSONObject | Primitive;
 export type NavigationProps = {
   route: {
     params: {
-      itemId: number;
+      url: string;
       name: string;
     };
   };

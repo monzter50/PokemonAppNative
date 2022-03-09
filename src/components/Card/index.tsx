@@ -4,14 +4,14 @@ import {CardProps} from '../../types';
 import {theme} from '../../theme';
 
 function Card(props: CardProps) {
-  const {name, handleGoToDetails} = props;
+  const {name, handleGoToDetails, url} = props;
   if (!name) {
     return null;
   }
   return (
     <Pressable
       style={styles.pokemonItem}
-      onPress={() => handleGoToDetails({name})}>
+      onPress={() => handleGoToDetails({name, url})}>
       <View>
         <Image
           style={styles.logo}

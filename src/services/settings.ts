@@ -10,7 +10,9 @@ export function configure({
   let query = Object.keys(params)
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     .join('&');
-  return fetch(`${baseUrl}${endpoint}?${query}`, {
+  const replace = args.url !== undefined;
+  const uri = replace ? args.url : `${baseUrl}${endpoint}?${query}`;
+  return fetch(uri, {
     method, // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     // credentials: 'same-origin', // include, *same-origin, omit

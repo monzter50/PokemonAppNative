@@ -1,5 +1,6 @@
 import create from 'zustand';
-import pokemonService from '../services/homeServices';
+import pokemonService from '../services/pokemonServices';
+import {getEvolutions} from '../utils';
 import {JSONObject} from '../types';
 
 const useStorePokemons = create((set: (args: JSONObject) => void) => ({
@@ -14,4 +15,68 @@ const useStorePokemons = create((set: (args: JSONObject) => void) => ({
   },
 }));
 
-export {useStorePokemons};
+const useStorePokemonInformation = create((set: (args: Object) => void) => ({
+  pokemon: {},
+  isLoading: false,
+  getInformation: async (url: string) => {
+    set({isLoading: true});
+
+    try {
+      const response = await pokemonService.getInformation(url);
+      let dataInformation = {
+        evolutionsChain: {url: '' as string},
+        weekness: [] as any[],
+        fortress: [] as any[],
+        types: [] as string[],
+        name: '' as string,
+        evoltions: [] as JSONObject[],
+      };
+      const {data} = response;
+      const typesUrl = data.types.map(
+        (item: {type: {url: Object}}) => item.type.url,
+      );
+
+      const typesNames = data.types.map(
+        (item: {type: {name: string}}) => item.type.name,
+      );
+
+      const urlList = [data.species.url, ...typesUrl];
+      const fetchList = urlList.map(uri => pokemonService.getInformation(uri));
+      const values = await Promise.all([...fetchList]);
+      values.forEach(item => {
+        const {data: information} = item;
+        if (information.evolution_chain) {
+          dataInformation.evolutionsChain = information.evolution_chain;
+        }
+        if (information.damage_relations) {
+          const weekness = information.damage_relations.double_damage_from.map(
+            (damage: JSONObject) => damage.name,
+          );
+          const fortress = information.damage_relations.double_damage_to.map(
+            (damage: JSONObject) => damage.name,
+          );
+
+          dataInformation.weekness = [...dataInformation.weekness, ...weekness];
+          dataInformation.fortress = [...dataInformation.fortress, ...fortress];
+        }
+      });
+      const evoltions = await pokemonService.getInformation(
+        dataInformation.evolutionsChain.url,
+      );
+      dataInformation.types = [...typesNames];
+      dataInformation.name = data.name;
+      const {data: evo} = evoltions;
+      const allEvolutions = getEvolutions(evo.chain);
+      dataInformation.evoltions = [...allEvolutions];
+
+      set({
+        pokemon: {[data.name]: dataInformation},
+        isLoading: false,
+      });
+    } catch (error) {
+      console.log(error);
+      set({isLoading: false});
+    }
+  },
+}));
+export {useStorePokemons, useStorePokemonInformation};
