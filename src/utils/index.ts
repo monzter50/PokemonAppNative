@@ -97,3 +97,11 @@ export function backgroundColorType(
       return Colors.normal;
   }
 }
+
+export function zeroPad(num: number, count: number = 2): string {
+  var numZeropad = num + '';
+  while (numZeropad.length < count) {
+    numZeropad = '0' + numZeropad;
+  }
+  return numZeropad;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Button, StyleSheet, Image, ScrollView} from 'react-native';
 import {Loading, ListBadges} from '../../components';
 import useFetchInformation from '../../hooks/useFetchInformation';
-import {backgroundColorType} from '../../utils';
+import {backgroundColorType, zeroPad} from '../../utils';
 import {theme} from '../../theme';
 import {NavigationProps} from '../../types';
 
@@ -16,6 +16,7 @@ function Detailscreen(props: NavigationProps) {
     pokemon.types[pokemon.types.length - 1];
   const typeDefault = typeof firstType === 'string' ? firstType : 'normal';
   const currentColor = backgroundColorType(typeDefault);
+  const ID = pokemon.id;
   if (!pokemon) {
     return null;
   }
@@ -27,7 +28,7 @@ function Detailscreen(props: NavigationProps) {
       <View style={styles.headerContainer}>
         <View style={styles.header}>
           <Text style={styles.h1}>{name}</Text>
-          <Text style={styles.h1}>#001</Text>
+          <Text style={styles.h1}>#{zeroPad(ID, 3)}</Text>
         </View>
         <View>
           <Image
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textTransform: 'capitalize',
+    color: theme.colorWhite,
   },
   header: {
     flexDirection: 'row',

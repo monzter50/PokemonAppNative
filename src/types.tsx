@@ -54,4 +54,5 @@ export type PokemonInformation = {
   types?: string[];
   evoltions: EvolutionsProps[];
   evolutionsChain: {url: string};
+  id: number;
 };
