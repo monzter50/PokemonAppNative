@@ -15,9 +15,9 @@ export const BottomTabsNavigator: React.FC = () => {
         tabBarActiveTintColor: theme.primaryColor,
         tabBarInactiveTintColor: theme.colorGrey,
         tabBarShowLabel: false,
-        headerShown: false,
+        // headerShown: false,
         tabBarIcon: ({color, size}) => {
-          if (route.name === 'Home') {
+          if (route.name === 'HomeStack') {
             return <ListIcon color={color} size={size} />;
           }
           if (route.name === 'Search') {
@@ -29,7 +29,11 @@ export const BottomTabsNavigator: React.FC = () => {
           return null;
         },
       })}>
-      <BottomTabs.Screen name="Home" component={HomeStack} />
+      <BottomTabs.Screen
+        name="HomeStack"
+        component={HomeStack}
+        options={{title: 'List Pokemon'}}
+      />
       <BottomTabs.Screen
         name="Search"
         component={SearchScreen}

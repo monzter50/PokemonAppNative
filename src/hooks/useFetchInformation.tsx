@@ -1,17 +1,12 @@
 import {useEffect} from 'react';
 import {useStorePokemonInformation} from '../provider';
-import {JSONObject} from '../types';
-
-type InformationProps = {
-  name?: string;
-  url: string;
-};
+import {PokemonInformation, InformationProps} from '../types';
 
 export default function useFetchInformation(props: InformationProps) {
   const {url} = props;
   const informationStore = useStorePokemonInformation(
     (state: {
-      pokemon: JSONObject;
+      pokemon: PokemonInformation;
       isLoading: boolean;
       getInformation: (url: string) => Promise<void>;
     }) => {

@@ -1,7 +1,7 @@
 import create from 'zustand';
 import pokemonService from '../services/pokemonServices';
 import {getEvolutions} from '../utils';
-import {JSONObject} from '../types';
+import {JSONObject, PokemonInformation} from '../types';
 
 type PokemonObj = {
   evolutionsChain: {
@@ -27,7 +27,7 @@ const useStorePokemons = create((set: (args: JSONObject) => void) => ({
 }));
 
 const useStorePokemonInformation = create((set: (args: Object) => void) => ({
-  pokemon: {},
+  pokemon: {} as PokemonInformation,
   isLoading: false,
   getInformation: async (url: string) => {
     set({isLoading: true});

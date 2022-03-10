@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Loading} from '../../components';
 import useFetchInformation from '../../hooks/useFetchInformation';
+import {backgroundColorType} from '../../utils';
 import {theme} from '../../theme';
 import {NavigationProps} from '../../types';
 
@@ -17,29 +18,33 @@ function Detailscreen(props: NavigationProps) {
   const {navigation, route} = props;
   const {url, name} = route?.params;
   const {pokemon, isLoading} = useFetchInformation({url});
-  const info = pokemon;
+  const firstType =
+    pokemon.types instanceof Array &&
+    pokemon.types.length > 0 &&
+    pokemon.types[pokemon.types.length - 1];
+  const typeDefault = typeof firstType === 'string' ? firstType : 'normal';
 
-  if (!info || !pokemon) {
+  const currentColor = backgroundColorType(typeDefault);
+  if (!pokemon) {
     return null;
   }
   if (isLoading) {
     return <Loading />;
   }
-  console.log('info', pokemon);
+  console.log('info', pokemon, typeof firstType);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: currentColor}]}>
       <StatusBar barStyle={'light-content'} />
 
       <ScrollView
         style={{
-          backgroundColor: 'blue',
           flex: 1,
           paddingTop: 40,
         }}>
-        <View style={styles.row}>
-          <Text style={styles.title}>{name}</Text>
-          <Text style={styles.title}>#001</Text>
+        <View style={styles.header}>
+          <Text style={styles.h1}>{name}</Text>
+          <Text style={styles.h1}>#001</Text>
         </View>
         <View>
           <Image
@@ -48,57 +53,70 @@ function Detailscreen(props: NavigationProps) {
               uri: `https://img.pokemondb.net/artwork/${name}.jpg`,
             }}
           />
-        </View>
-        <View
-          style={{paddingVertical: theme.large, marginVertical: theme.large}}>
-          <Text style={styles.subTitle}>Weekness</Text>
-          <View style={styles.row}>
-            {pokemon.weekness instanceof Array &&
-              pokemon.weekness.map((el: any) => (
-                <Text style={styles.paraph}>{el}</Text>
+          <View style={styles.containerTypes}>
+            {pokemon.types instanceof Array &&
+              pokemon.types.map((type, index) => (
+                <Text key={`type-${type}-${index}`} style={styles.title}>
+                  {type}
+                </Text>
               ))}
           </View>
         </View>
-        <View
-          style={{paddingVertical: theme.large, marginVertical: theme.large}}>
-          <Text style={styles.subTitle}>Fortress</Text>
-          <View style={styles.row}>
-            {pokemon.fortress instanceof Array &&
-              pokemon.fortress.map((el: any) => (
-                <Text style={styles.paraph}>{el}</Text>
+        <View style={styles.containerInfo}>
+          <View
+            style={{paddingVertical: theme.large, marginVertical: theme.large}}>
+            <Text style={styles.subTitle}>Weekness</Text>
+            <View style={styles.row}>
+              {pokemon.weekness instanceof Array &&
+                pokemon.weekness.map((el: any, index: number) => (
+                  <Text key={`weekness-${el}-${index}`} style={styles.paraph}>
+                    {el}
+                  </Text>
+                ))}
+            </View>
+          </View>
+          <View
+            style={{paddingVertical: theme.large, marginVertical: theme.large}}>
+            <Text style={styles.subTitle}>Fortress</Text>
+            <View style={styles.row}>
+              {pokemon.fortress instanceof Array &&
+                pokemon.fortress.map((el: any, index: number) => (
+                  <Text key={`fortress-${el}-${index}`} style={styles.paraph}>
+                    {el}
+                  </Text>
+                ))}
+            </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              paddingVertical: theme.large,
+              marginVertical: theme.large,
+              backgroundColor: '#eee',
+            }}>
+            {pokemon.evoltions instanceof Array &&
+              pokemon.evoltions.map((el: any) => (
+                <View>
+                  <Image
+                    style={styles.tinyLogo}
+                    source={{
+                      uri: `https://img.pokemondb.net/artwork/${el.speciesName}.jpg`,
+                    }}
+                  />
+                  <Text style={styles.paraph}>{el.speciesName}</Text>
+                </View>
               ))}
           </View>
-        </View>
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-            paddingVertical: theme.large,
-            marginVertical: theme.large,
-            backgroundColor: '#eee',
-          }}>
-          {pokemon.evoltions instanceof Array &&
-            pokemon.evoltions.map((el: any) => (
-              <View>
-                <Image
-                  style={styles.tinyLogo}
-                  source={{
-                    uri: `https://img.pokemondb.net/artwork/${el.speciesName}.jpg`,
-                  }}
-                />
-                <Text style={styles.paraph}>{el.speciesName}</Text>
-              </View>
-            ))}
+          <Button
+            title="Go to Home"
+            onPress={() => navigation.navigate('Home')}
+          />
+          <Button title="Go back" onPress={() => navigation.goBack()} />
         </View>
-
-        <Button
-          title="Go to Home"
-          onPress={() => navigation.navigate('Home')}
-        />
-        <Button title="Go back" onPress={() => navigation.goBack()} />
       </ScrollView>
     </View>
   );
@@ -107,7 +125,6 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     padding: theme.large,
-    backgroundColor: 'red',
     height: '100%',
     width: '100%',
     // paddingTop: 80,
@@ -142,7 +159,40 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  containerTypes: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-around',
+    paddingVertical: theme.large,
+  },
+  h1: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+  },
+  header: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingVertical: theme.large,
+  },
+  containerInfo: {
+    backgroundColor: theme.colorWhite,
+    borderRadius: 20,
+    padding: theme.medium,
+    marginLeft: theme.medium,
+    marginBottom: theme.medium,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
 });
 export default Detailscreen;
