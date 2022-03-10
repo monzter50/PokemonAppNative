@@ -9,9 +9,8 @@ import {theme} from '../../theme';
 function HomeScreen({navigation}: NavigationProps) {
   const {pokemons, isLoading, next, prev, count, offset} = useFetchPokemons();
   const handleGoToDetails = (_pokemonObj: Pokemon) => {
-    console.log(_pokemonObj);
     navigation.navigate('Details', {
-      itemId: 86,
+      url: _pokemonObj.url || '',
       name: _pokemonObj.name,
     });
   };
@@ -23,10 +22,11 @@ function HomeScreen({navigation}: NavigationProps) {
       {!isLoading && (
         <ScrollView style={styles.wrapper}>
           <View style={styles.list}>
-            {pokemons.map((pokemon: Pokemon) => (
+            {pokemons?.map((pokemon: Pokemon) => (
               <Card
                 key={pokemon.name}
                 name={pokemon.name}
+                url={pokemon.url}
                 handleGoToDetails={handleGoToDetails}
               />
             ))}
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     margin: theme.large,
     marginTop: 20,
+    height: '100%',
+    width: '100%',
   },
   list: {
     flex: 1,

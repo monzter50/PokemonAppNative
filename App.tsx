@@ -10,19 +10,15 @@
 
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './src/ui/Home';
-import DetailScreen from './src/ui/Details';
-
-const Stack = createNativeStackNavigator();
+// import {createNativeStackNavigator} from '@react-navigation/native-stack';
+// import HomeScreen from './src/ui/Home';
+// import DetailScreen from './src/ui/Details';
+import {BottomTabsNavigator} from './src/Routes/BottomTabsNavigator';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailScreen} />
-      </Stack.Navigator>
+      <BottomTabsNavigator />
     </NavigationContainer>
   );
 };

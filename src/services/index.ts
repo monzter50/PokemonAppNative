@@ -6,7 +6,6 @@ export function get(
 ): Promise<any> {
   return new Promise(function (resolve, reject) {
     const {endpoint, ..._arguments} = options;
-    console.log('options', options);
     configure({
       method: 'GET',
       endpoint: endpoint,
@@ -19,7 +18,11 @@ export function get(
         return response.json();
       })
       .then(result => {
-        resolve({data: result?.results || [], count: result?.count || 0});
+        let response = result;
+        if (response.results) {
+          response = response.results;
+        }
+        resolve({data: response, count: result?.count || 0});
       })
       .catch(error => {
         return reject(error.response);
