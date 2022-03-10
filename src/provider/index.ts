@@ -12,6 +12,7 @@ type PokemonObj = {
   types: string[];
   name: string;
   evoltions: JSONObject[];
+  id: number;
 };
 
 const useStorePokemons = create((set: (args: JSONObject) => void) => ({
@@ -41,8 +42,10 @@ const useStorePokemonInformation = create((set: (args: Object) => void) => ({
         types: [],
         name: '',
         evoltions: [],
+        id: 0,
       };
       const {data} = response;
+      dataInformation.id = data.id;
       const typesUrl = data.types.map(
         (item: {type: {url: Object}}) => item.type.url,
       );
