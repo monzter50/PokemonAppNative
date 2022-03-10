@@ -9,10 +9,18 @@ const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
       }}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="Details" component={DetailScreen} />
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{title: 'List Pokemons'}}
+      />
+      <HomeStack.Screen
+        name="Details"
+        component={DetailScreen}
+        options={{title: 'Detail Pokemon'}}
+      />
     </HomeStack.Navigator>
   );
 };

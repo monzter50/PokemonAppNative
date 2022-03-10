@@ -9,7 +9,7 @@ import {theme} from '../../theme';
 function HomeScreen({navigation}: NavigationProps) {
   const {pokemons, isLoading, next, prev, count, offset} = useFetchPokemons();
   const handleGoToDetails = (_pokemonObj: Pokemon) => {
-    navigation.navigate('Details', {
+    navigation.push('Details', {
       url: _pokemonObj.url || '',
       name: _pokemonObj.name,
     });
@@ -24,7 +24,7 @@ function HomeScreen({navigation}: NavigationProps) {
           <View style={styles.list}>
             {pokemons?.map((pokemon: Pokemon) => (
               <Card
-                key={pokemon.name}
+                key={`card-${pokemon.name}`}
                 name={pokemon.name}
                 url={pokemon.url}
                 handleGoToDetails={handleGoToDetails}

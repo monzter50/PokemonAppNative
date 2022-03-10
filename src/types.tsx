@@ -16,6 +16,7 @@ export type NavigationProps = {
   navigation: {
     goBack: () => void;
     navigate: (arg: Primitive, params?: JSONObject) => void;
+    push: (arg: Primitive, params?: JSONObject) => void;
   };
 };
 

@@ -30,7 +30,11 @@ function Detailscreen(props: NavigationProps) {
           <Text style={styles.h1}>{name}</Text>
           <Text style={styles.h1}>#{zeroPad(ID, 3)}</Text>
         </View>
-        <View>
+        <View style={styles.image}>
+          <Image
+            style={styles.pokeball}
+            source={require('../../images/Pokeball.png')}
+          />
           <Image
             style={styles.logo}
             source={{
@@ -67,11 +71,6 @@ function Detailscreen(props: NavigationProps) {
               </View>
             ))}
         </View>
-        <Button
-          title="Go to Home"
-          onPress={() => navigation.navigate('Home')}
-        />
-        <Button title="Go back" onPress={() => navigation.goBack()} />
       </View>
     </ScrollView>
   );
@@ -123,6 +122,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     marginBottom: -20,
+    position: 'relative',
   },
   containerInfo: {
     marginBottom: 50,
@@ -138,6 +138,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 1.0,
     elevation: 1,
+  },
+  pokeball: {
+    position: 'absolute',
+    right: 20,
+    top: 50,
+  },
+  image: {
+    position: 'relative',
+    justifyContent: 'center',
   },
 });
 export default Detailscreen;

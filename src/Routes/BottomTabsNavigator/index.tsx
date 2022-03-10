@@ -10,12 +10,12 @@ const BottomTabs = createBottomTabNavigator();
 export const BottomTabsNavigator: React.FC = () => {
   return (
     <BottomTabs.Navigator
+      initialRouteName="HomeStack"
       screenOptions={({route}) => ({
         // headerTitleStyle: { fontFamily: theme.fontFamilyBold },
         tabBarActiveTintColor: theme.primaryColor,
         tabBarInactiveTintColor: theme.colorGrey,
         tabBarShowLabel: false,
-        // headerShown: false,
         tabBarIcon: ({color, size}) => {
           if (route.name === 'HomeStack') {
             return <ListIcon color={color} size={size} />;
@@ -32,7 +32,7 @@ export const BottomTabsNavigator: React.FC = () => {
       <BottomTabs.Screen
         name="HomeStack"
         component={HomeStack}
-        options={{title: 'List Pokemon'}}
+        options={{title: 'List Pokemon', headerShown: false}}
       />
       <BottomTabs.Screen
         name="Search"
