@@ -1,4 +1,4 @@
-import {backgroundColors} from '../theme';
+import {backgroundColors, colors} from '../theme';
 import {JSONObject} from '../types';
 type DetailsObj = {
   trigger: {name: string};
@@ -51,45 +51,49 @@ export const getEvolutions = (evolutionData: EvoProps) => {
   return evoChain;
 };
 
-export function backgroundColorType(type: string = 'normal'): string {
+export function backgroundColorType(
+  type: string = 'normal',
+  isBackground: boolean = true,
+): string {
+  let Colors = isBackground ? backgroundColors : colors;
   switch (type) {
     case 'normal':
-      return backgroundColors.normal;
+      return Colors.normal;
     case 'bug':
-      return backgroundColors.bug;
+      return Colors.bug;
     case 'grass':
-      return backgroundColors.grass;
+      return Colors.grass;
     case 'water':
-      return backgroundColors.water;
+      return Colors.water;
     case 'fire':
-      return backgroundColors.fire;
+      return Colors.fire;
     case 'dark':
-      return backgroundColors.dark;
+      return Colors.dark;
     case 'dragon':
-      return backgroundColors.dragon;
+      return Colors.dragon;
     case 'electric':
-      return backgroundColors.electric;
+      return Colors.electric;
     case 'electric':
-      return backgroundColors.electric;
+      return Colors.electric;
     case 'fairy':
-      return backgroundColors.fairy;
+      return Colors.fairy;
     case 'fighting':
-      return backgroundColors.fighting;
+      return Colors.fighting;
     case 'ghost':
-      return backgroundColors.ghost;
+      return Colors.ghost;
     case 'ground':
-      return backgroundColors.ground;
+      return Colors.ground;
     case 'ice':
-      return backgroundColors.ice;
+      return Colors.ice;
     case 'poison':
-      return backgroundColors.poison;
+      return Colors.poison;
     case 'psychic':
-      return backgroundColors.psychic;
+      return Colors.psychic;
     case 'rock':
-      return backgroundColors.rock;
+      return Colors.rock;
     case 'steel':
-      return backgroundColors.steel;
+      return Colors.steel;
     default:
-      return backgroundColors.normal;
+      return Colors.normal;
   }
 }

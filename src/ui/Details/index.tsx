@@ -8,7 +8,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import {Loading} from '../../components';
+import {Loading, ListBadges} from '../../components';
 import useFetchInformation from '../../hooks/useFetchInformation';
 import {backgroundColorType} from '../../utils';
 import {theme} from '../../theme';
@@ -23,7 +23,6 @@ function Detailscreen(props: NavigationProps) {
     pokemon.types.length > 0 &&
     pokemon.types[pokemon.types.length - 1];
   const typeDefault = typeof firstType === 'string' ? firstType : 'normal';
-
   const currentColor = backgroundColorType(typeDefault);
   if (!pokemon) {
     return null;
@@ -53,40 +52,20 @@ function Detailscreen(props: NavigationProps) {
               uri: `https://img.pokemondb.net/artwork/${name}.jpg`,
             }}
           />
-          <View style={styles.containerTypes}>
-            {pokemon.types instanceof Array &&
-              pokemon.types.map((type, index) => (
-                <Text key={`type-${type}-${index}`} style={styles.title}>
-                  {type}
-                </Text>
-              ))}
-          </View>
         </View>
         <View style={styles.containerInfo}>
-          <View
-            style={{paddingVertical: theme.large, marginVertical: theme.large}}>
-            <Text style={styles.subTitle}>Weekness</Text>
-            <View style={styles.row}>
-              {pokemon.weekness instanceof Array &&
-                pokemon.weekness.map((el: any, index: number) => (
-                  <Text key={`weekness-${el}-${index}`} style={styles.paraph}>
-                    {el}
-                  </Text>
-                ))}
-            </View>
-          </View>
-          <View
-            style={{paddingVertical: theme.large, marginVertical: theme.large}}>
-            <Text style={styles.subTitle}>Fortress</Text>
-            <View style={styles.row}>
-              {pokemon.fortress instanceof Array &&
-                pokemon.fortress.map((el: any, index: number) => (
-                  <Text key={`fortress-${el}-${index}`} style={styles.paraph}>
-                    {el}
-                  </Text>
-                ))}
-            </View>
-          </View>
+          <ListBadges list={pokemon.types} justifySpace="space-around" />
+          <ListBadges
+            title="Weekness"
+            list={pokemon.weekness}
+            justifySpace="flex-start"
+          />
+          <ListBadges
+            title="Fortress"
+            list={pokemon.fortress}
+            justifySpace="flex-start"
+          />
+
           <View
             style={{
               flex: 1,
