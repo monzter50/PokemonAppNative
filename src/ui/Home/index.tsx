@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     margin: theme.large,
     marginTop: 20,
+    height: '100%',
+    width: '100%',
   },
   list: {
     flex: 1,

@@ -3,6 +3,17 @@ import pokemonService from '../services/pokemonServices';
 import {getEvolutions} from '../utils';
 import {JSONObject} from '../types';
 
+type PokemonObj = {
+  evolutionsChain: {
+    url: string;
+  };
+  weekness: string[];
+  fortress: string[];
+  types: string[];
+  name: string;
+  evoltions: JSONObject[];
+};
+
 const useStorePokemons = create((set: (args: JSONObject) => void) => ({
   pokemons: [],
   count: 0,
@@ -23,13 +34,13 @@ const useStorePokemonInformation = create((set: (args: Object) => void) => ({
 
     try {
       const response = await pokemonService.getInformation(url);
-      let dataInformation = {
-        evolutionsChain: {url: '' as string},
-        weekness: [] as any[],
-        fortress: [] as any[],
-        types: [] as string[],
-        name: '' as string,
-        evoltions: [] as JSONObject[],
+      let dataInformation: PokemonObj = {
+        evolutionsChain: {url: ''},
+        weekness: [],
+        fortress: [],
+        types: [],
+        name: '',
+        evoltions: [],
       };
       const {data} = response;
       const typesUrl = data.types.map(
@@ -49,14 +60,17 @@ const useStorePokemonInformation = create((set: (args: Object) => void) => ({
           dataInformation.evolutionsChain = information.evolution_chain;
         }
         if (information.damage_relations) {
-          const weekness = information.damage_relations.double_damage_from.map(
-            (damage: JSONObject) => damage.name,
+          information.damage_relations.double_damage_from.forEach(
+            function (damage: {name: string}) {
+              dataInformation.weekness.push(damage.name);
+            },
           );
-          const fortress = information.damage_relations.double_damage_to.map(
-            (damage: JSONObject) => damage.name,
-          );
+          const fortress: string[] =
+            information.damage_relations.double_damage_to.map(
+              (damage: JSONObject) => damage.name,
+            );
 
-          dataInformation.weekness = [...dataInformation.weekness, ...weekness];
+          // dataInformation.weekness = [...dataInformation.weekness, ...weekness];
           dataInformation.fortress = [...dataInformation.fortress, ...fortress];
         }
       });
@@ -70,7 +84,7 @@ const useStorePokemonInformation = create((set: (args: Object) => void) => ({
       dataInformation.evoltions = [...allEvolutions];
 
       set({
-        pokemon: {[data.name]: dataInformation},
+        pokemon: {...dataInformation},
         isLoading: false,
       });
     } catch (error) {
