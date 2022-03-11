@@ -60,7 +60,7 @@ function Detailscreen(props: NavigationProps) {
         <View style={styles.containerEvolutions}>
           {pokemon.evoltions instanceof Array &&
             pokemon.evoltions.map((el: any) => (
-              <View>
+              <View style={styles.evolve}>
                 <Image
                   style={styles.tinyLogo}
                   source={{
@@ -77,9 +77,8 @@ function Detailscreen(props: NavigationProps) {
 }
 const styles = StyleSheet.create({
   container: {
-    padding: theme.large,
-    height: '100%',
-    width: '100%',
+    padding: theme.medium,
+    flex: 1,
   },
   logo: {
     width: '100%',
@@ -89,22 +88,26 @@ const styles = StyleSheet.create({
   },
 
   tinyLogo: {
-    width: '100%',
-    height: 100,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginBottom: -20,
+    marginBottom: -15,
   },
   paraph: {
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 14,
   },
+  evolve: {
+    flexGrow: 1,
+    flexShrink: 0,
+    flexBasis: '40.3%',
+    margin: theme.medium,
+  },
   containerEvolutions: {
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
     marginHorizontal: theme.large,
   },
   h1: {
@@ -129,7 +132,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colorWhite,
     borderRadius: 20,
     padding: theme.medium,
-    marginLeft: theme.medium,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

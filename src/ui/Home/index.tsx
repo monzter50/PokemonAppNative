@@ -40,10 +40,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    margin: theme.large,
+    margin: theme.medium,
     marginTop: 20,
-    height: '100%',
-    width: '100%',
   },
   list: {
     flex: 1,
