@@ -19,12 +19,12 @@ I am creating a react native app so that I can improve my skills and understandi
   - List Pokemons ✅
   - Pagination ✅
   - Go to Details Pokemon ✅
-- Details Screen
-  - Avatar
-  - Description
-  - Type
+- Details Screen ✅
+  - Avatar ✅
+  - Description ✅
+  - Type ✅
   - Weakness
-  - Back
+  - Back ✅
 - Add favorites Screen
   - List favorites pokemon
   - Go to details Pokemon

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Button, StyleSheet, Image, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
 import {Loading, ListBadges} from '../../components';
 import useFetchInformation from '../../hooks/useFetchInformation';
 import {backgroundColorType, zeroPad} from '../../utils';
@@ -7,7 +7,7 @@ import {theme} from '../../theme';
 import {NavigationProps} from '../../types';
 
 function Detailscreen(props: NavigationProps) {
-  const {navigation, route} = props;
+  const {route} = props;
   const {url, name} = route?.params;
   const {pokemon, isLoading} = useFetchInformation({url});
   const firstType =
