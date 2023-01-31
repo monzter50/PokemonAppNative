@@ -13,6 +13,8 @@ const theme = {
 
   medium: 10,
   large: 12,
+
+  space: 10,
 };
 
 const colors = {

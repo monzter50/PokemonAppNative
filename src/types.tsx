@@ -53,7 +53,7 @@ export type PokemonInformation = {
   fortress?: string[];
   weekness?: string[];
   types?: string[];
-  evoltions: EvolutionsProps[];
+  evolutions: EvolutionsProps[];
   evolutionsChain: {url: string};
   id: number;
 };
