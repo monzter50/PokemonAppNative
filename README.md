@@ -34,7 +34,7 @@ https://user-images.githubusercontent.com/17136843/223911808-85bbd226-97ef-4ab3-
 - Add favorites Screen
   - List favorites pokemon
   - Go to details Pokemon 
-- Search Screen  
+- Search Screen ✅  
   - Search Box ✅
   - Logic find pokemon ✅
   - Show list pokemon lookup ✅
