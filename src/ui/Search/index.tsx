@@ -1,30 +1,60 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 import {theme} from '../../theme';
+import {SearchIcon} from '../../components/Icons';
+import PokemonInfo from '../../components/PokemonInfo';
+import useFetchPokemon from '../../hooks/useFetchPokemon';
 
 export default function Search() {
-  const [text, onChangeText] = useState('');
+  const {status, pokemon, err, onChangeHandler} = useFetchPokemon();
+
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
+      <View style={styles.container}>
+        <View style={styles.head}>
+          <View style={styles.wrapper}>
+            <SearchIcon
+              size={30}
+              color="black"
+              style={{marginRight: theme.medium}}
+            />
+            <TextInput
+              autoCorrect={false}
+              style={styles.input}
+              onChangeText={value => {
+                onChangeHandler(value);
+              }}
+              placeholder="Search #ID o Name"
+            />
+          </View>
+        </View>
+        <PokemonInfo status={status} pokemon={pokemon} err={err} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 30,
+    borderWidth: 1,
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: theme.medium,
+  },
   container: {
     flex: 1,
+    flexDirection: 'column',
+  },
+  head: {
+    margin: theme.medium,
   },
 
   input: {
-    height: 40,
-    borderWidth: 1,
-    marginHorizontal: theme.medium,
-    padding: 10,
     backgroundColor: '#FFFFFF',
+    flex: 1,
   },
 });

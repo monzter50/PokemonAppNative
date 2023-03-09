@@ -15,17 +15,19 @@ type PokemonObj = {
   id: number;
 };
 
-const useStorePokemons = create((set: (args: JSONObject) => void) => ({
-  pokemons: [],
-  count: 0,
-  isLoading: false,
-  getPokemons: async (params: JSONObject) => {
-    set({isLoading: true});
-    const response = await pokemonService.getPokemons(params);
-    const {data, count} = response;
-    set({pokemons: data, isLoading: false, count});
-  },
-}));
+const useStorePokemons = create(
+  (set: (args: JSONObject | unknown) => void) => ({
+    pokemons: [],
+    count: 0,
+    isLoading: false,
+    getPokemons: async (params: JSONObject) => {
+      set({isLoading: true});
+      const response = await pokemonService.getPokemons(params);
+      const {data, count} = response;
+      set({pokemons: data, isLoading: false, count});
+    },
+  }),
+);
 
 const useStorePokemonInformation = create((set: (args: Object) => void) => ({
   pokemon: {} as PokemonInformation,
@@ -72,7 +74,6 @@ const useStorePokemonInformation = create((set: (args: Object) => void) => ({
               (damage: JSONObject) => damage.name,
             );
 
-          // dataInformation.weekness = [...dataInformation.weekness, ...weekness];
           dataInformation.fortress = [...dataInformation.fortress, ...fortress];
         }
       });
@@ -90,9 +91,28 @@ const useStorePokemonInformation = create((set: (args: Object) => void) => ({
         isLoading: false,
       });
     } catch (error) {
-      console.log(error);
       set({isLoading: false});
     }
   },
 }));
-export {useStorePokemons, useStorePokemonInformation};
+
+const useStorePokemon = create((set: (args: JSONObject | unknown) => void) => ({
+  pokemon: null,
+  status: 'idle',
+  err: null,
+  getPokemon: async (name: string) => {
+    try {
+      set({status: 'pending'});
+      const response = await pokemonService.getPokemon(name);
+      set({pokemon: response.data, status: 'resolved'});
+    } catch (err: any) {
+      if (err?.status === 404) {
+        set({status: 'not_found', err});
+      } else {
+        set({status: 'rejected', err});
+      }
+    }
+  },
+}));
+
+export {useStorePokemons, useStorePokemonInformation, useStorePokemon};

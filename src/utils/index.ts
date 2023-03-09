@@ -14,14 +14,13 @@ type EvoProps = {
 
 export const getEvolutions = (evolutionData: EvoProps) => {
   const evoChain = [];
-  let evoData = evolutionData || null;
+  let evoData = evolutionData ?? null;
   if (evoData) {
     do {
       let numberOfEvolutions = evoData.evolves_to.length;
 
       const evoDetails = evoData.evolution_details[0];
       const id = evoData.species.url.split('/');
-      console.log(evoDetails);
       evoChain.push({
         speciesName: evoData.species.name,
         minLevel: !evoDetails ? 1 : evoDetails.min_level,
@@ -29,8 +28,10 @@ export const getEvolutions = (evolutionData: EvoProps) => {
         item: !evoDetails ? null : evoDetails.item,
         id: `${id[6]}`,
       });
+
       if (numberOfEvolutions > 1) {
-        for (let i = 0; i < numberOfEvolutions; i++) {
+        for (let i = 1; i < numberOfEvolutions; i++) {
+          const newId = evoData.evolves_to[i].species.url.split('/');
           evoChain.push({
             speciesName: evoData.evolves_to[i].species.name,
             minLevel: !evoData.evolves_to[i]
@@ -40,7 +41,7 @@ export const getEvolutions = (evolutionData: EvoProps) => {
               ? null
               : evoData.evolves_to[i].trigger.name,
             item: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].item,
-            id: `${id[6]}`,
+            id: `${newId[6]}`,
           });
         }
       }
@@ -99,7 +100,7 @@ export function backgroundColorType(
   }
 }
 
-export function zeroPad(num: number, count: number = 2): string {
+export function zeroPad(num?: number | string, count: number = 2): string {
   var numZeropad = num + '';
   while (numZeropad.length < count) {
     numZeropad = '0' + numZeropad;

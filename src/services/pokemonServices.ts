@@ -8,6 +8,13 @@ function getPokemons(params: JSONObject = {}) {
   });
 }
 
+function getPokemon(name: string = '') {
+  return get({
+    endpoint: `pokemon/${name.toLowerCase()}/`,
+    data: {},
+  });
+}
+
 function getInformation(url: string = '') {
   return get({
     endpoint: '',
@@ -19,4 +26,5 @@ function getInformation(url: string = '') {
 export default {
   getPokemons,
   getInformation,
+  getPokemon,
 };

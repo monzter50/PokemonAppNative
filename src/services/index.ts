@@ -13,7 +13,7 @@ export function get(
     })
       .then(response => {
         if (response.status !== 200) {
-          return reject(defaultErr);
+          return reject({defaultErr, status: response.status});
         }
         return response.json();
       })
