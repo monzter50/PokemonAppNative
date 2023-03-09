@@ -13,6 +13,12 @@ I am creating a react native app so that I can improve my skills and understandi
 - Use React Navigation
 - Implement Responsive
 
+## Documentation
+### Home Screen
+https://user-images.githubusercontent.com/17136843/223911735-96424c9e-1ff0-47ab-a07c-e77955d1ce6f.mp4
+
+### Search Screen  
+https://user-images.githubusercontent.com/17136843/223911808-85bbd226-97ef-4ab3-84a2-5059a3f237f8.mp4
 ## Features
 
 - Home Screen ✅
@@ -27,11 +33,11 @@ I am creating a react native app so that I can improve my skills and understandi
   - Back ✅
 - Add favorites Screen
   - List favorites pokemon
-  - Go to details Pokemon
+  - Go to details Pokemon 
 - Search Screen  
-  - Search Box
-  - Logic find pokemon
-  - Show list pokemon lookup
+  - Search Box ✅
+  - Logic find pokemon ✅
+  - Show list pokemon lookup ✅
 - Navigations ✅
     - Bottom menu ✅
         - Home ✅
