@@ -19,6 +19,12 @@ https://user-images.githubusercontent.com/17136843/223911735-96424c9e-1ff0-47ab-
 
 ### Search Screen  
 https://user-images.githubusercontent.com/17136843/223911808-85bbd226-97ef-4ab3-84a2-5059a3f237f8.mp4
+
+### Favorite Screen
+
+https://user-images.githubusercontent.com/17136843/224374123-169d5aca-0a18-4596-8971-8f0c87901573.mp4
+
+
 ## Features
 
 - Home Screen ✅
@@ -29,11 +35,11 @@ https://user-images.githubusercontent.com/17136843/223911808-85bbd226-97ef-4ab3-
   - Avatar ✅
   - Description ✅
   - Type ✅
-  - Weakness
+  - Weakness ✅
   - Back ✅
-- Add favorites Screen
-  - List favorites pokemon
-  - Go to details Pokemon 
+- Add favorites Screen ✅
+  - List favorites pokemon ✅
+  - Go to details Pokemon ✅
 - Search Screen ✅  
   - Search Box ✅
   - Logic find pokemon ✅
