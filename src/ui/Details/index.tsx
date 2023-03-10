@@ -1,19 +1,38 @@
 import React from 'react';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {Loading, ListBadges} from '../../components';
 import useFetchInformation from '../../hooks/useFetchInformation';
 import {backgroundColorType, zeroPad} from '../../utils';
 import {theme} from '../../theme';
-import {NavigationProps} from '../../types';
+import {NavigationProps, Pokemon} from '../../types';
 import Carousel from '../../components/Carousel';
 import SvgUri from 'react-native-svg-uri';
 import IconTypes from '../../components/IconTypes';
+import {FavoriteIcon} from '../../components/Icons';
+import {useStorePokemonsFavorite} from '../../provider';
 
 function Detailscreen(props: NavigationProps) {
   const {route} = props;
   const {url, name} = route?.params;
   const {pokemon, isLoading} = useFetchInformation({url});
 
+  const {addPokemonFavorite, pokemons} = useStorePokemonsFavorite(
+    (state: {
+      addPokemonFavorite: (Pokemon: Pokemon) => Promise<void>;
+      pokemons: Pokemon[];
+    }) => {
+      return {
+        addPokemonFavorite: state.addPokemonFavorite,
+        pokemons: state.pokemons,
+      };
+    },
+  );
   const firstType =
     pokemon.types instanceof Array && pokemon.types.length > 0
       ? pokemon.types[pokemon.types.length - 1]
@@ -22,6 +41,8 @@ function Detailscreen(props: NavigationProps) {
   const currentColor = backgroundColorType(typeDefault);
   const ID = pokemon.id;
   const evolves = pokemon.evolutions;
+  const checkFavoritePokemon = (obj: Pokemon) => obj.id === ID;
+  const disabled = pokemons.some(checkFavoritePokemon);
   if (!pokemon && !evolves) {
     return null;
   }
@@ -60,6 +81,21 @@ function Detailscreen(props: NavigationProps) {
       </View>
 
       <View style={styles.containerInfo}>
+        <View
+          style={{
+            alignItems: 'flex-end',
+            paddingRight: theme.medium,
+            paddingTop: theme.medium,
+          }}>
+          <TouchableOpacity
+            disabled={disabled}
+            onPress={() => addPokemonFavorite({url, name, id: ID})}>
+            <FavoriteIcon
+              color={disabled ? theme.colorGrey : '#000000'}
+              size={30}
+            />
+          </TouchableOpacity>
+        </View>
         <ListBadges
           title="Weekness"
           list={pokemon.weekness}

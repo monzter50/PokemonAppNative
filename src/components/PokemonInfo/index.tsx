@@ -9,7 +9,8 @@ import {Pokemon} from '../../types';
 
 export default function PokemonInfo({status, err, pokemon}: any) {
   const {navigate} = useNavigation<NativeStackNavigationProp<any>>();
-  const url = `${baseUrl}/pokemon/${pokemon.id}`;
+  const id = pokemon?.id ?? '';
+  const url = `${baseUrl}/pokemon/${id}`;
 
   const handleGoToDetails = (_pokemonObj: Pokemon) => {
     navigate('HomeStack', {

@@ -1,12 +1,32 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {theme} from '../../theme';
+import {useStorePokemonsFavorite} from '../../provider';
+import {Pokemon} from '../../types';
+import FavoriteInfo from '../../components/FavoriteInfo';
 
 function FavoriteScreen() {
+  const {pokemons} = useStorePokemonsFavorite(
+    (state: {pokemons: Pokemon[]}) => {
+      return {
+        pokemons: state.pokemons,
+      };
+    },
+  );
+
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>FavoriteScreen Screen </Text>
+    <View style={styles.container}>
+      <FavoriteInfo pokemons={pokemons} />
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: theme.medium,
+    marginTop: 20,
+  },
+});
 export default FavoriteScreen;
