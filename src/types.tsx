@@ -35,6 +35,7 @@ export type CardProps = {
 export type Pokemon = {
   name: string;
   url?: string;
+  id?: number;
 };
 
 export type InformationProps = {
