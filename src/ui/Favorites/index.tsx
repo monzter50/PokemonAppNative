@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {theme} from '../../theme';
-import {useStorePokemonsFavorite} from '../../provider';
-import {Pokemon} from '../../types';
-import FavoriteInfo from '../../components/FavoriteInfo';
+import { View, StyleSheet } from 'react-native';
+import { theme } from '@monster/theme';
+import { useStorePokemonsFavorite } from '@monster/provider';
+import { Pokemon } from '@monster/types';
+import FavoriteInfo from '@monster/components/FavoriteInfo';
 
 function FavoriteScreen() {
-  const {pokemons} = useStorePokemonsFavorite(
-    (state: {pokemons: Pokemon[]}) => {
+  const { pokemons } = useStorePokemonsFavorite(
+    (state: { pokemons: Pokemon[] }) => {
       return {
         pokemons: state.pokemons,
       };

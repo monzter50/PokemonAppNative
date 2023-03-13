@@ -9,11 +9,11 @@
  */
 
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import HomeScreen from './src/ui/Home';
 // import DetailScreen from './src/ui/Details';
-import {BottomTabsNavigator} from './src/Routes/BottomTabsNavigator';
+import { BottomTabsNavigator } from './src/Routes/BottomTabsNavigator';
 
 const App = () => {
   return (

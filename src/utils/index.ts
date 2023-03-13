@@ -1,14 +1,14 @@
-import {backgroundColors, colors} from '../theme';
-import {JSONObject} from '../types';
+import { backgroundColors, colors } from '@monster/theme';
+import { JSONObject } from '@monster/types';
 type DetailsObj = {
-  trigger: {name: string};
+  trigger: { name: string };
   min_level: number;
   item: JSONObject;
 };
 
 type EvoProps = {
   evolution_details: DetailsObj[];
-  species: {url: string; name: string};
+  species: { url: string; name: string };
   evolves_to: any[];
 };
 

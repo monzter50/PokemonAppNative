@@ -1,19 +1,19 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {theme} from '../../theme';
-import {backgroundColorType} from '../../utils';
+import { View, Text, StyleSheet } from 'react-native';
+import { theme } from '@monster/theme';
+import { backgroundColorType } from '@monster/utils';
 type BadgesProps = {
   type: string;
 };
 export default function Badges(props: BadgesProps) {
-  const {type} = props;
+  const { type } = props;
   if (!type) {
     return null;
   }
   const currentColor = backgroundColorType(type);
 
   return (
-    <View style={[styles.container, {backgroundColor: currentColor}]}>
+    <View style={[styles.container, { backgroundColor: currentColor }]}>
       <Text style={styles.paraph}>{type}</Text>
     </View>
   );

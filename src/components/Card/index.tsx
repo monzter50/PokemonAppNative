@@ -1,17 +1,17 @@
 import React from 'react';
-import {Text, View, Pressable, Image, StyleSheet} from 'react-native';
-import {CardProps} from '../../types';
-import {theme} from '../../theme';
+import { Text, View, Pressable, Image, StyleSheet } from 'react-native';
+import { CardProps } from '@monster/types';
+import { theme } from '@monster/theme';
 
 function Card(props: CardProps) {
-  const {name, handleGoToDetails, url} = props;
+  const { name, handleGoToDetails, url } = props;
   if (!name) {
     return null;
   }
   return (
     <Pressable
       style={styles.pokemonItem}
-      onPress={() => handleGoToDetails({name, url})}>
+      onPress={() => handleGoToDetails({ name, url })}>
       <View>
         <Image
           style={styles.logo}

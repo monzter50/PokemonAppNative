@@ -1,6 +1,6 @@
 export type Primitive = number | string | boolean | null;
 
-export type JSONObject = {[k: string]: JSONTypes};
+export type JSONObject = { [k: string]: JSONTypes };
 
 export type JSONArray = JSONTypes[];
 
@@ -55,6 +55,6 @@ export type PokemonInformation = {
   weekness?: string[];
   types?: string[];
   evolutions: EvolutionsProps[];
-  evolutionsChain: {url: string};
+  evolutionsChain: { url: string };
   id: number;
 };

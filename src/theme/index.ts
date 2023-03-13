@@ -69,4 +69,4 @@ const textColor = {
 const customColor = {
   input: '#F2F2F2',
 };
-export {colors, backgroundColors, textColor, customColor, theme};
+export { colors, backgroundColors, textColor, customColor, theme };

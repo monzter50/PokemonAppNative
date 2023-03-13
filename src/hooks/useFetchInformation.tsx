@@ -1,9 +1,9 @@
-import {useEffect} from 'react';
-import {useStorePokemonInformation} from '../provider';
-import {PokemonInformation, InformationProps} from '../types';
+import { useEffect } from 'react';
+import { useStorePokemonInformation } from '@monster/provider';
+import { PokemonInformation, InformationProps } from '@monster/types';
 
 export default function useFetchInformation(props: InformationProps) {
-  const {url} = props;
+  const { url } = props;
   const informationStore = useStorePokemonInformation(
     (state: {
       pokemon: PokemonInformation;
@@ -18,7 +18,7 @@ export default function useFetchInformation(props: InformationProps) {
     },
   );
 
-  const {getInformation} = informationStore;
+  const { getInformation } = informationStore;
 
   useEffect(() => {
     (async function () {

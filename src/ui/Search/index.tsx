@@ -1,12 +1,12 @@
 import React from 'react';
-import {TextInput, View, StyleSheet} from 'react-native';
-import {theme} from '../../theme';
-import {SearchIcon} from '../../components/Icons';
-import PokemonInfo from '../../components/PokemonInfo';
-import useFetchPokemon from '../../hooks/useFetchPokemon';
+import { TextInput, View, StyleSheet } from 'react-native';
+import { theme } from '@monster/theme';
+import { SearchIcon } from '@monster/components/Icons';
+import PokemonInfo from '@monster/components/PokemonInfo';
+import useFetchPokemon from '@monster/hooks/useFetchPokemon';
 
 export default function Search() {
-  const {status, pokemon, err, onChangeHandler} = useFetchPokemon();
+  const { status, pokemon, err, onChangeHandler } = useFetchPokemon();
 
   return (
     <View style={styles.container}>
@@ -16,7 +16,7 @@ export default function Search() {
             <SearchIcon
               size={30}
               color="black"
-              style={{marginRight: theme.medium}}
+              style={{ marginRight: theme.medium }}
             />
             <TextInput
               autoCorrect={false}

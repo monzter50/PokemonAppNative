@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react';
-import {useStorePokemons} from '../provider';
-import {Pokemon, JSONObject} from '../types';
+import { useEffect, useState } from 'react';
+import { useStorePokemons } from '@monster/provider';
+import { Pokemon, JSONObject } from '@monster/types';
 
 function useFetchPokemons() {
   const [limit] = useState(10);
@@ -14,7 +14,7 @@ function useFetchPokemons() {
     }
   };
   const store = useStorePokemons(
-    (state: {pokemons: Pokemon[]; isLoading: boolean; count: number}) => {
+    (state: { pokemons: Pokemon[]; isLoading: boolean; count: number }) => {
       return {
         pokemons: state.pokemons || [],
         isLoading: state.isLoading,
@@ -23,12 +23,12 @@ function useFetchPokemons() {
     },
   );
   let getPokemons = useStorePokemons(
-    (state: {getPokemons: (params: JSONObject) => void}) => state.getPokemons,
+    (state: { getPokemons: (params: JSONObject) => void }) => state.getPokemons,
   );
 
   useEffect(() => {
     (async function () {
-      await getPokemons({limit, offset});
+      await getPokemons({ limit, offset });
     })();
   }, [getPokemons, limit, offset]);
 

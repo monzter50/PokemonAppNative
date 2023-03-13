@@ -1,5 +1,5 @@
-import {get} from './index';
-import {JSONObject} from '../types';
+import { get } from './index';
+import { JSONObject } from '@monster/types';
 function getPokemons(params: JSONObject = {}) {
   return get({
     endpoint: 'pokemon',

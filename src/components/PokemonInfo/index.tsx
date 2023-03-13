@@ -1,21 +1,21 @@
 import React from 'react';
-import EmptyScreen from '../States/Empty';
-import {useNavigation} from '@react-navigation/native';
-import Card from '../Card';
-import {View, StyleSheet} from 'react-native';
-import {baseUrl} from '../../constant';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Pokemon} from '../../types';
+import EmptyScreen from '@monster/components/States/Empty';
+import { useNavigation } from '@react-navigation/native';
+import Card from '@monster/components/Card';
+import { View, StyleSheet } from 'react-native';
+import { baseUrl } from '@monster/constant';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Pokemon } from '@monster/types';
 
-export default function PokemonInfo({status, err, pokemon}: any) {
-  const {navigate} = useNavigation<NativeStackNavigationProp<any>>();
+export default function PokemonInfo({ status, err, pokemon }: any) {
+  const { navigate } = useNavigation<NativeStackNavigationProp<any>>();
   const id = pokemon?.id ?? '';
   const url = `${baseUrl}/pokemon/${id}`;
 
   const handleGoToDetails = (_pokemonObj: Pokemon) => {
     navigate('HomeStack', {
       screen: 'Details',
-      params: {url: _pokemonObj.url, name: _pokemonObj.name},
+      params: { url: _pokemonObj.url, name: _pokemonObj.name },
     });
   };
   if (status === 'idle') {

@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, StyleProp, ViewStyle} from 'react-native';
-import Badges from '../Badges';
-import {theme} from '../../theme';
+import { View, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import Badges from '@monster/components/Badges';
+import { theme } from '@monster/theme';
 type ListBadgesProps = {
   list?: string[];
   title?: string;
@@ -9,15 +9,15 @@ type ListBadgesProps = {
   containerStyle?: StyleProp<ViewStyle>;
 };
 export default function ListBadges(props: ListBadgesProps) {
-  const {containerStyle, list, title, justifySpace = 'space-between'} = props;
+  const { containerStyle, list, title, justifySpace = 'space-between' } = props;
   const container = StyleSheet.compose<ViewStyle>(
-    [{marginVertical: theme.large}],
+    [{ marginVertical: theme.large }],
     containerStyle,
   );
   return (
     <View style={container}>
       {title && <Text style={styles.subTitle}>{title}</Text>}
-      <View style={stylesProps({direction: justifySpace}).row}>
+      <View style={stylesProps({ direction: justifySpace }).row}>
         {list instanceof Array &&
           list.map((el: any, index: number) => (
             <Badges key={`${title}-${el}-${index}`} type={el} />

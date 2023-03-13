@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleProp, View, ViewStyle} from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import {
   Bug,
   Dark,
@@ -41,7 +41,7 @@ interface IconTypesProps {
     | string;
   containerStyles: StyleProp<ViewStyle>;
 }
-export default function IconTypes({type, containerStyles}: IconTypesProps) {
+export default function IconTypes({ type, containerStyles }: IconTypesProps) {
   switch (type) {
     case 'bug':
       return <Bug size={200} color={'#fff'} style={containerStyles} />;

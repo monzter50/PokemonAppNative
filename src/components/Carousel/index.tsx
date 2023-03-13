@@ -9,10 +9,10 @@ import {
   Text,
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
-import {theme} from '../../theme';
-import {zeroPad} from '../../utils';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { theme } from '@monster/theme';
+import { zeroPad } from '@monster/utils';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type PokemonType = {
   id?: number | string;
   name?: string;
@@ -30,9 +30,9 @@ type EvolvesType = {
 
 const MAX_WIDTH = Dimensions.get('screen').width;
 
-function CarouselEvolutions({evolves}: EvolvesType) {
-  const {navigate} = useNavigation<NativeStackNavigationProp<any>>();
-  const handleGoToDetails = ({id, name}: PokemonType) => {
+function CarouselEvolutions({ evolves }: EvolvesType) {
+  const { navigate } = useNavigation<NativeStackNavigationProp<any>>();
+  const handleGoToDetails = ({ id, name }: PokemonType) => {
     navigate('Details', {
       url: `https://pokeapi.co/api/v2/pokemon/${id}/` || '',
       name: name,
@@ -45,11 +45,11 @@ function CarouselEvolutions({evolves}: EvolvesType) {
       snapToInterval={MAX_WIDTH * 0.7}
       decelerationRate="fast"
       pagingEnabled
-      style={{marginVertical: theme.space * 2}}>
+      style={{ marginVertical: theme.space * 2 }}>
       {evolves?.map((evol: EvolType, index: number) => (
         <TouchableOpacity
           onPress={() =>
-            handleGoToDetails({id: evol.id, name: evol.speciesName})
+            handleGoToDetails({ id: evol.id, name: evol.speciesName })
           }
           style={styles.containerEvolutions}
           key={index}>

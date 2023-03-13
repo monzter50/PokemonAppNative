@@ -1,5 +1,5 @@
-import {useState, useRef} from 'react';
-import {useStorePokemon} from '../provider';
+import { useState, useRef } from 'react';
+import { useStorePokemon } from '@monster/provider';
 
 export default function useFetchPokemon() {
   const [, onChangeText] = useState('');
@@ -28,7 +28,7 @@ export default function useFetchPokemon() {
       }, 1000);
     }
   };
-  const {getPokemon} = pokemonStore;
+  const { getPokemon } = pokemonStore;
 
   return {
     pokemon: pokemonStore.pokemon,

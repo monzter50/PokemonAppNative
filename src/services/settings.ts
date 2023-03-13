@@ -1,9 +1,9 @@
-import {baseUrl} from '../constant';
+import { baseUrl } from '@monster/constant';
 
 export function configure({
   method = 'GET',
   endpoint = '',
-  params = {limit: 10, offset: 0},
+  params = { limit: 10, offset: 0 },
   ...args
 }: any) {
   // Opciones por defecto estan marcadas con un *

@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
-import Card from '../../components/Card';
-import {Loading, Pagination} from '../../components';
-import useFetchPokemons from '../../hooks/useFetchPokemons';
-import {NavigationProps, Pokemon} from '../../types';
-import {theme} from '../../theme';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import Card from '@monster/components/Card';
+import { Loading, Pagination } from '@monster/components';
+import useFetchPokemons from '@monster/hooks/useFetchPokemons';
+import { NavigationProps, Pokemon } from '@monster/types';
+import { theme } from '@monster/theme';
 
-function HomeScreen({navigation}: NavigationProps) {
-  const {pokemons, isLoading, next, prev, count, offset} = useFetchPokemons();
+function HomeScreen({ navigation }: NavigationProps) {
+  const { pokemons, isLoading, next, prev, count, offset } = useFetchPokemons();
   const handleGoToDetails = (_pokemonObj: Pokemon) => {
     navigation.push('Details', {
       url: _pokemonObj.url || '',

@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {theme} from '../../../theme';
+import { StyleSheet, Text, View } from 'react-native';
+import { theme } from '@monster/theme';
 
 interface IEmpty {
   message: string;
 }
 
-export default function EmptyScreen({message}: IEmpty) {
+export default function EmptyScreen({ message }: IEmpty) {
   return (
     <View style={styles.body}>
       <Text style={styles.emptyMessage}>{message}</Text>

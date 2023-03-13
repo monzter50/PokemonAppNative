@@ -6,23 +6,23 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {Loading, ListBadges} from '../../components';
-import useFetchInformation from '../../hooks/useFetchInformation';
-import {backgroundColorType, zeroPad} from '../../utils';
-import {theme} from '../../theme';
-import {NavigationProps, Pokemon} from '../../types';
-import Carousel from '../../components/Carousel';
+import { Loading, ListBadges } from '@monster/components';
+import useFetchInformation from '@monster/hooks/useFetchInformation';
+import { backgroundColorType, zeroPad } from '@monster/utils';
+import { theme } from '@monster/theme';
+import { NavigationProps, Pokemon } from '@monster/types';
+import Carousel from '@monster/components/Carousel';
 import SvgUri from 'react-native-svg-uri';
-import IconTypes from '../../components/IconTypes';
-import {FavoriteIcon} from '../../components/Icons';
-import {useStorePokemonsFavorite} from '../../provider';
+import IconTypes from '@monster/components/IconTypes';
+import { FavoriteIcon } from '@monster/components/Icons';
+import { useStorePokemonsFavorite } from '@monster/provider';
 
 function Detailscreen(props: NavigationProps) {
-  const {route} = props;
-  const {url, name} = route?.params;
-  const {pokemon, isLoading} = useFetchInformation({url});
+  const { route } = props;
+  const { url, name } = route?.params;
+  const { pokemon, isLoading } = useFetchInformation({ url });
 
-  const {addPokemonFavorite, pokemons} = useStorePokemonsFavorite(
+  const { addPokemonFavorite, pokemons } = useStorePokemonsFavorite(
     (state: {
       addPokemonFavorite: (Pokemon: Pokemon) => Promise<void>;
       pokemons: Pokemon[];
@@ -50,7 +50,7 @@ function Detailscreen(props: NavigationProps) {
     return <Loading />;
   }
   return (
-    <ScrollView style={[styles.container, {backgroundColor: currentColor}]}>
+    <ScrollView style={[styles.container, { backgroundColor: currentColor }]}>
       <View style={styles.headerContainer}>
         <View style={styles.wrapper}>
           <View style={styles.header}>
@@ -81,15 +81,10 @@ function Detailscreen(props: NavigationProps) {
       </View>
 
       <View style={styles.containerInfo}>
-        <View
-          style={{
-            alignItems: 'flex-end',
-            paddingRight: theme.medium,
-            paddingTop: theme.medium,
-          }}>
+        <View style={styles.favoriteIconWrapper}>
           <TouchableOpacity
             disabled={disabled}
-            onPress={() => addPokemonFavorite({url, name, id: ID})}>
+            onPress={() => addPokemonFavorite({ url, name, id: ID })}>
             <FavoriteIcon
               color={disabled ? theme.colorGrey : '#000000'}
               size={30}
@@ -181,6 +176,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 300,
+  },
+  favoriteIconWrapper: {
+    alignItems: 'flex-end',
+    paddingRight: theme.medium,
+    paddingTop: theme.medium,
   },
 });
 export default Detailscreen;

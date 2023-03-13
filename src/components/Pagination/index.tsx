@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, TouchableHighlight, View, StyleSheet} from 'react-native';
-import {theme} from '../../theme';
-import {LeftIcon, RightIcon} from '../Icons';
+import { Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { theme } from '@monster/theme';
+import { LeftIcon, RightIcon } from '@monster/components/Icons';
 type PaginationProps = {
   next: () => void;
   prev: () => void;
@@ -9,7 +9,7 @@ type PaginationProps = {
   offset: number;
 };
 export default function Pagination(props: PaginationProps) {
-  const {next, prev, offset, count} = props;
+  const { next, prev, offset, count } = props;
   return (
     <View style={styles.nav}>
       <TouchableHighlight underlayColor="rgba(73,182,77,1,0.6)" onPress={prev}>
