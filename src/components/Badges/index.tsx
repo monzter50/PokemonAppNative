@@ -13,7 +13,9 @@ export default function Badges(props: BadgesProps) {
   const currentColor = backgroundColorType(type);
 
   return (
-    <View style={[styles.container, { backgroundColor: currentColor }]}>
+    <View
+      style={[styles.container, { backgroundColor: currentColor }]}
+      testID="badge">
       <Text style={styles.paraph}>{type}</Text>
     </View>
   );
