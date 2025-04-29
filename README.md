@@ -1,5 +1,13 @@
 # MY Pokemon Application
 
+## Índice
+
+*   [Description](#description)
+*   [Requirements](#requirements)
+*   [Documentation](#documentation)
+*   [Features](#features)
+*   [Guía de Troubleshooting: Errores con `boost.podspec` en iOS (React Native)](#guía-de-troubleshooting-errores-con-boostpodspec-en-ios-react-native)
+
 ## Description
 
 I am creating a react native app so that I can improve my skills and understanding about zustand and typing. 
