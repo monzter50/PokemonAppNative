@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, Animated } from 'react-native';
 import { theme } from '@monster/theme';
 import { useStorePokemonsFavorite } from '@monster/provider';
 import { Pokemon } from '@monster/types';
@@ -14,10 +14,20 @@ function FavoriteScreen() {
     },
   );
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <FavoriteInfo pokemons={pokemons} />
-    </View>
+    </Animated.View>
   );
 }
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, FlatList, StyleSheet, RefreshControl } from 'react-native';
 import Card from '@monster/components/Card';
 import { Loading, Pagination } from '@monster/components';
 import useFetchPokemons from '@monster/hooks/useFetchPokemons';
@@ -8,6 +8,8 @@ import { theme } from '@monster/theme';
 
 function HomeScreen({ navigation }: NavigationProps) {
   const { pokemons, isLoading, next, prev, count, offset } = useFetchPokemons();
+  const [refreshing, setRefreshing] = useState(false);
+
   const handleGoToDetails = (_pokemonObj: Pokemon) => {
     navigation.push('Details', {
       url: _pokemonObj.url || '',
@@ -15,23 +17,41 @@ function HomeScreen({ navigation }: NavigationProps) {
     });
   };
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Simulate refresh - in real app, this would refetch data
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
+  const renderItem = ({ item }: { item: Pokemon }) => (
+    <Card
+      name={item.name}
+      url={item.url}
+      handleGoToDetails={handleGoToDetails}
+    />
+  );
+
+  const keyExtractor = (item: Pokemon) => `card-${item.name}`;
+
   return (
     <View style={styles.container}>
       <Pagination next={next} prev={prev} count={count} offset={offset} />
       {isLoading && <Loading />}
       {!isLoading && (
-        <ScrollView style={styles.wrapper}>
-          <View style={styles.list}>
-            {pokemons?.map((pokemon: Pokemon) => (
-              <Card
-                key={`card-${pokemon.name}`}
-                name={pokemon.name}
-                url={pokemon.url}
-                handleGoToDetails={handleGoToDetails}
-              />
-            ))}
-          </View>
-        </ScrollView>
+        <FlatList
+          data={pokemons}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          numColumns={2}
+          contentContainerStyle={styles.list}
+          columnWrapperStyle={styles.columnWrapper}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          showsVerticalScrollIndicator={false}
+        />
       )}
     </View>
   );
@@ -44,14 +64,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   list: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingBottom: 20,
   },
-  wrapper: {
-    flex: 1,
+  columnWrapper: {
+    justifyContent: 'space-between',
+    paddingHorizontal: 5,
   },
 });
 

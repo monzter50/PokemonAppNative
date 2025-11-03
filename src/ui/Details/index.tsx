@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Text,
   View,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import { Loading, ListBadges } from '@monster/components';
 import useFetchInformation from '@monster/hooks/useFetchInformation';
@@ -22,6 +23,10 @@ function Detailscreen(props: NavigationProps) {
   const { url, name } = route?.params;
   const { pokemon, isLoading } = useFetchInformation({ url });
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
+  const scaleAnim = useRef(new Animated.Value(0.8)).current;
+
   const { addPokemonFavorite, pokemons } = useStorePokemonsFavorite(
     (state: {
       addPokemonFavorite: (Pokemon: Pokemon) => Promise<void>;
@@ -33,6 +38,31 @@ function Detailscreen(props: NavigationProps) {
       };
     },
   );
+
+  useEffect(() => {
+    if (!isLoading && pokemon) {
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+        Animated.spring(slideAnim, {
+          toValue: 0,
+          tension: 50,
+          friction: 7,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          tension: 50,
+          friction: 7,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [isLoading, pokemon, fadeAnim, slideAnim, scaleAnim]);
+
   const firstType =
     pokemon.types instanceof Array && pokemon.types.length > 0
       ? pokemon.types[pokemon.types.length - 1]
@@ -51,7 +81,14 @@ function Detailscreen(props: NavigationProps) {
   }
   return (
     <ScrollView style={[styles.container, { backgroundColor: currentColor }]}>
-      <View style={styles.headerContainer}>
+      <Animated.View
+        style={[
+          styles.headerContainer,
+          {
+            opacity: fadeAnim,
+            transform: [{ translateY: slideAnim }],
+          },
+        ]}>
         <View style={styles.wrapper}>
           <View style={styles.header}>
             <View style={styles.title}>
@@ -67,7 +104,13 @@ function Detailscreen(props: NavigationProps) {
             <Text style={styles.h1}>#{zeroPad(ID, 3)}</Text>
           </View>
         </View>
-        <View style={styles.image}>
+        <Animated.View
+          style={[
+            styles.image,
+            {
+              transform: [{ scale: scaleAnim }],
+            },
+          ]}>
           <IconTypes type={firstType} containerStyles={[styles.pokeball]} />
 
           <SvgUri
@@ -77,10 +120,16 @@ function Detailscreen(props: NavigationProps) {
             width="200"
             height="200"
           />
-        </View>
-      </View>
+        </Animated.View>
+      </Animated.View>
 
-      <View style={styles.containerInfo}>
+      <Animated.View
+        style={[
+          styles.containerInfo,
+          {
+            opacity: fadeAnim,
+          },
+        ]}>
         <View style={styles.favoriteIconWrapper}>
           <TouchableOpacity
             disabled={disabled}
@@ -105,7 +154,7 @@ function Detailscreen(props: NavigationProps) {
         <View style={styles.containerEvolutions}>
           <Carousel evolves={evolves} />
         </View>
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 }

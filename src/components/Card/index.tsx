@@ -1,18 +1,44 @@
 import React from 'react';
-import { Text, View, Pressable, Image, StyleSheet } from 'react-native';
+import { Text, Pressable, Image, StyleSheet, Animated } from 'react-native';
 import { CardProps } from '@monster/types';
 import { theme } from '@monster/theme';
 
 function Card(props: CardProps) {
   const { name, handleGoToDetails, url } = props;
+  const scaleAnim = React.useRef(new Animated.Value(1)).current;
+
   if (!name) {
     return null;
   }
+
+  const handlePressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <Pressable
-      style={styles.pokemonItem}
-      onPress={() => handleGoToDetails({ name, url })}>
-      <View>
+      onPress={() => handleGoToDetails({ name, url })}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}>
+      <Animated.View
+        style={[
+          styles.pokemonItem,
+          {
+            transform: [{ scale: scaleAnim }],
+          },
+        ]}>
         <Image
           style={styles.logo}
           source={{
@@ -20,15 +46,11 @@ function Card(props: CardProps) {
           }}
         />
         <Text style={styles.title}>{name}</Text>
-      </View>
+      </Animated.View>
     </Pressable>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 50,
-  },
-
   logo: {
     width: '100%',
     height: 100,
@@ -40,21 +62,22 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: theme.medium,
     margin: theme.medium,
-    width: '40%',
+    minWidth: 150,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 4,
     },
-    shadowOpacity: 0.15,
-    shadowRadius: 1.0,
-
-    elevation: 1,
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    textTransform: 'capitalize',
+    marginTop: 8,
   },
 });
 export default Card;
