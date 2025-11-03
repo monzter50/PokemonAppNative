@@ -1,7 +1,13 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+# Helper function for react-native-screens
+def install_modules_dependencies(spec)
+  # No-op for RN 0.70
+end
+
 platform :ios, '12.4'
+$RNFirebaseAsStaticFramework = true
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'PokemonAppNative' do
@@ -29,16 +35,20 @@ target 'PokemonAppNative' do
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
   # use_flipper!() # Temporarily commented out for troubleshooting
-end
 
   post_install do |installer|
-    react_native_post_install(installer)
+    react_native_post_install(
+      installer,
+      # Set `mac_catalyst_enabled` to `true` in order to apply patches
+      # necessary for Mac Catalyst builds
+      :mac_catalyst_enabled => false
+    )
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
 
-  # Loop to set C++ standard for RN pods
-  installer.pods_project.targets.each do |target|
-    if target.name.start_with?('React') || target.name == 'RCT-Folly' || target.name == 'Yoga'
+    # Loop to set C++ standard for RN pods
+    installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'gnu++14'
+        config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
       end
     end
   end
